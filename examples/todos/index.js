@@ -6,10 +6,15 @@ import { createStore } from 'redux'
 import todoApp from './reducers'
 import App from './components/App'
 
-let store = createStore(todoApp)
+export default function configureStore(initialState) {
+  const store = createStore(todoApp, initialState,
+    window.devToolsExtension && window.devToolsExtension()
+  );
+  return store;
+}
 
 render(
-  <Provider store={store}>
+  <Provider store={configureStore()}>
     <App />
   </Provider>,
   document.getElementById('root')
